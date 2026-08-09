@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<article class="recipe">
+  <a class="back-link" href="{{ '/' | relative_url }}">&larr; All recipes</a>
+  <h1>{{ page.title }}</h1>
+
+  <p class="recipe-meta">
+    {% if page.source_name %}
+      Adapted from <a href="{{ page.source_url }}" target="_blank" rel="noopener">{{ page.source_name }}</a>.
+    {% endif %}
+    {% if page.servings %}Serves {{ page.servings }}.{% endif %}
+  </p>
+
+  {% if page.tags %}
+    <p class="recipe-tags">
+      {% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+    </p>
+  {% endif %}
+
+  <div class="recipe-body">
+    {{ content }}
+  </div>
+
+  {% if page.changelog %}
+    <section class="changelog">
+      <h2>Changelog</h2>
+      <ul>
+        {% for entry in page.changelog %}
+          <li><strong>{{ entry.date }}</strong> — {{ entry.note }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+</article>

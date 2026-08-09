@@ -1,0 +1,20 @@
+---
+layout: default
+title: Recipes
+---
+<h1>{{ site.title }}</h1>
+<p>{{ site.description }}</p>
+
+<ul class="recipe-list">
+  {% assign recipes = site.recipes | sort: 'title' %}
+  {% for recipe in recipes %}
+    <li>
+      <a href="{{ recipe.url | relative_url }}">{{ recipe.title }}</a>
+      {% if recipe.tags %}
+        <span class="tag-list">
+          {% for tag in recipe.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        </span>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

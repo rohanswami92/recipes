@@ -1,0 +1,28 @@
+title: Rohan's Recipes
+description: >-
+  Recipes I actually cook, adapted from around the web to fit how we like to eat —
+  kept here so I stop losing them, and shared in case they're useful to you too.
+url: "https://recipes.rohanswami.com"
+baseurl: ""
+
+collections:
+  recipes:
+    output: true
+    permalink: /:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: recipes
+    values:
+      layout: recipe
+
+markdown: kramdown
+plugins:
+  - jekyll-feed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - docs
