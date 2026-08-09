@@ -8,14 +8,15 @@ servings: 4
 changelog:
   - date: 2026-08-09
     note: >-
+      First cook: swapped brown sugar for honey, dropped the chilli garlic sauce option
+      and kept sambal oelek only (noted sriracha as an emergency sub, adds a vinegar
+      taste), now flip the wings during basting, and added a note that leftover sauce
+      is good with a leafy salad, capsicum and cucumber.
+  - date: 2026-08-09
+    note: >-
       First import, base version straight from the source (no personal tweaks yet) —
       a starting point to adjust after cooking it.
 ---
-
-<!--
-  Base version, close to the source. Cook it once, then edit ingredients/method to
-  match what you actually did and add a changelog entry above describing the change.
--->
 
 ## Ingredients
 
@@ -27,11 +28,11 @@ changelog:
 - 2 tbsp lemon juice
 - 2 tbsp Shaoxing wine
 - 2 tbsp light soy sauce
-- 2 tbsp brown sugar (or honey)
+- 2 tbsp honey
 - 1½ tbsp hoisin sauce
 - 1½ tbsp oyster sauce
 - ¼ cup ketchup
-- 1 tbsp chilli garlic sauce (or sambal oelek)
+- 1 tbsp sambal oelek (can be sub with sriracha in emergency but this adds a vinegar taste)
 - 4 cloves garlic, minced
 - 1 tbsp ginger, finely grated
 - ½ tsp five spice powder
@@ -47,7 +48,7 @@ changelog:
 3. Preheat oven to 180°C (350°F). Line a tray with foil, then a sheet of baking paper on top.
 4. Lift the wings out (shake off excess marinade, keep it) and spread them on the tray in a
    single layer.
-5. Bake 45–50 minutes, basting with the reserved marinade and pan juices at the 25 and 35 minute
+5. Bake 45–50 minutes, flipping and basting with the reserved marinade and pan juices at the 25 and 35 minute
    marks.
 6. Done when the wings pull easily from the bone, edges are charred, and the glaze is dark and
    sticky.
@@ -57,5 +58,4 @@ changelog:
 
 - Marinating longer than an hour makes it watery rather than more flavourful — keep it short.
 - Leftovers keep 3–4 days and reheat fine in the microwave.
-- Base recipe as published — swap in your own tweaks here after you've cooked it (e.g. spice
-  level, sweetness, oven timing) and log them in the changelog above.
+- Leftover sauce works well with a leafy salad, capsicum and cucumber.
