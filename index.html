@@ -5,16 +5,91 @@ title: Recipes
 <h1>{{ site.title }}</h1>
 <p>{{ site.description }}</p>
 
-<ul class="recipe-list">
-  {% assign recipes = site.recipes | sort: 'title' %}
-  {% for recipe in recipes %}
-    <li>
-      <a href="{{ recipe.url | relative_url }}">{{ recipe.title }}</a>
-      {% if recipe.tags %}
-        <span class="tag-list">
-          {% for tag in recipe.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
-        </span>
-      {% endif %}
-    </li>
-  {% endfor %}
-</ul>
+<p class="filter-bar" id="filter-bar" hidden>
+  Showing <strong id="filter-name"></strong> recipes ·
+  <a href="{{ '/' | relative_url }}" id="filter-clear">Show all</a>
+</p>
+
+{% assign recipes = site.recipes | sort: 'title' %}
+{% for group in site.data.proteins %}
+  {% capture items %}
+    {% for recipe in recipes %}
+      {% comment %} Section = first tag that belongs to any section; else "Other". {% endcomment %}
+      {% assign recipe_group = "Other" %}
+      {% assign found = false %}
+      {% for tag in recipe.tags %}
+        {% for g in site.data.proteins %}
+          {% if g.tags contains tag %}{% assign recipe_group = g.name %}{% assign found = true %}{% break %}{% endif %}
+        {% endfor %}
+        {% if found %}{% break %}{% endif %}
+      {% endfor %}
+      {% if recipe_group != group.name %}{% continue %}{% endif %}
+
+      {% assign flag = "" %}
+      {% for tag in recipe.tags %}
+        {% if site.data.cuisines[tag] %}{% assign flag = site.data.cuisines[tag] %}{% break %}{% endif %}
+      {% endfor %}
+      <li data-tags="{{ recipe.tags | join: ' ' }}">
+        <a class="recipe-title" href="{{ recipe.url | relative_url }}">{{ recipe.title }}{% if flag != "" %} <span class="recipe-flag">{{ flag }}</span>{% endif %}</a>
+        {% if recipe.tags %}
+          <span class="tag-list">
+            {% for tag in recipe.tags %}<a class="tag" href="?tag={{ tag | url_encode }}" data-tag="{{ tag }}">{{ tag }}</a>{% endfor %}
+          </span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  {% endcapture %}
+
+  {% assign items = items | strip %}
+  {% if items != "" %}
+    <section class="recipe-group">
+      <h2><span aria-hidden="true">{{ group.emoji }}</span> {{ group.name }}</h2>
+      <ul class="recipe-list">{{ items }}</ul>
+    </section>
+  {% endif %}
+{% endfor %}
+
+<script>
+  // Tag filter: tapping a tag shows only recipes with it, kept in the URL (?tag=)
+  // so it can be shared and the back button works.
+  (function () {
+    var items = document.querySelectorAll('.recipe-list li');
+    var groups = document.querySelectorAll('.recipe-group');
+    var bar = document.getElementById('filter-bar');
+    var name = document.getElementById('filter-name');
+
+    function apply(tag) {
+      items.forEach(function (li) {
+        li.hidden = !!tag && li.dataset.tags.split(' ').indexOf(tag) === -1;
+      });
+      groups.forEach(function (group) {
+        group.hidden = !group.querySelector('li:not([hidden])');
+      });
+      document.querySelectorAll('.tag[data-tag]').forEach(function (link) {
+        link.classList.toggle('is-active', link.dataset.tag === tag);
+      });
+      bar.hidden = !tag;
+      name.textContent = tag || '';
+    }
+
+    function current() {
+      return new URLSearchParams(location.search).get('tag');
+    }
+
+    function go(tag) {
+      history.pushState(null, '', tag ? '?tag=' + encodeURIComponent(tag) : location.pathname);
+      apply(tag);
+    }
+
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest('.tag[data-tag], #filter-clear');
+      if (!link) return;
+      event.preventDefault();
+      var tag = link.dataset.tag;
+      go(tag && tag !== current() ? tag : null);
+    });
+
+    window.addEventListener('popstate', function () { apply(current()); });
+    apply(current());
+  })();
+</script>

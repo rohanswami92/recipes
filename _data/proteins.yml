@@ -1,0 +1,24 @@
+# Home page sections, in display order. A recipe goes in the section matching
+# its first tag that appears below, so put the main protein first in `tags`.
+# Sections with no recipes are hidden; anything unmatched lands in "Other".
+- name: Chicken
+  emoji: 🐔
+  tags: [chicken]
+- name: Beef
+  emoji: 🐄
+  tags: [beef]
+- name: Lamb
+  emoji: 🐑
+  tags: [lamb]
+- name: Pork
+  emoji: 🐖
+  tags: [pork]
+- name: Fish & Seafood
+  emoji: 🐟
+  tags: [fish, prawns, seafood]
+- name: Tofu & Veg
+  emoji: 🌱
+  tags: [tofu, eggs, vegetarian]
+- name: Other
+  emoji: 🍽️
+  tags: []

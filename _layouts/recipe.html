@@ -12,9 +12,13 @@ layout: default
     {% if page.servings %}Serves {{ page.servings }}.{% endif %}
   </p>
 
+  <button type="button" class="cook-mode" id="cook-mode" aria-pressed="false" hidden>
+    Cook mode: off
+  </button>
+
   {% if page.tags %}
     <p class="recipe-tags">
-      {% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+      {% for tag in page.tags %}<a class="tag" href="{{ '/' | relative_url }}?tag={{ tag | url_encode }}">{{ tag }}</a>{% endfor %}
     </p>
   {% endif %}
 
@@ -33,3 +37,47 @@ layout: default
     </section>
   {% endif %}
 </article>
+
+<script>
+  // Cook mode: keep the screen awake while a recipe is open (Screen Wake Lock API).
+  (function () {
+    if (!('wakeLock' in navigator)) return;
+
+    var button = document.getElementById('cook-mode');
+    var lock = null;
+    var enabled = false;
+
+    function render() {
+      button.setAttribute('aria-pressed', String(enabled));
+      button.textContent = enabled ? 'Cook mode: on — screen stays awake' : 'Cook mode: off';
+    }
+
+    async function acquire() {
+      try {
+        lock = await navigator.wakeLock.request('screen');
+        lock.addEventListener('release', function () { lock = null; });
+      } catch (err) {
+        // Denied (e.g. low battery mode) — turn the toggle back off.
+        enabled = false;
+        render();
+      }
+    }
+
+    button.addEventListener('click', function () {
+      enabled = !enabled;
+      render();
+      if (enabled) {
+        acquire();
+      } else if (lock) {
+        lock.release();
+      }
+    });
+
+    // The browser drops the lock when the tab is hidden; take it back on return.
+    document.addEventListener('visibilitychange', function () {
+      if (enabled && !lock && document.visibilityState === 'visible') acquire();
+    });
+
+    button.hidden = false;
+  })();
+</script>

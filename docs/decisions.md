@@ -2,6 +2,17 @@
 
 Running log of meaningful choices and *why*, newest first.
 
+## 2026-10-31 — Cook mode
+
+- **Cook mode toggle on every recipe page** keeps the phone screen from auto-locking while
+  cooking. Uses the browser's Screen Wake Lock API: no library, a few lines of inline JS in
+  `_layouts/recipe.html`.
+- **Opt-in, not automatic.** Browsing recipes shouldn't drain the battery; you tap it when you
+  start cooking. The lock is re-acquired when you switch back to the tab (browsers release it
+  when the page is hidden), and it ends when you leave the page.
+- **Hidden where unsupported.** Wake Lock needs a reasonably recent browser (iOS Safari 16.4+,
+  Chrome 84+) and HTTPS; older browsers just don't see the button.
+
 ## 2026-08-09 — Project kicked off
 
 - **Goal:** publish recipes (mostly adapted from other sites, tweaked to taste) somewhere easy

@@ -18,6 +18,8 @@ defaults:
       layout: recipe
 
 markdown: kramdown
+# No theme: the github-pages gem otherwise adds Primer, whose style.css replaces ours.
+theme: null
 plugins:
   - jekyll-feed
 
@@ -26,3 +28,4 @@ exclude:
   - Gemfile.lock
   - README.md
   - docs
+  - vendor

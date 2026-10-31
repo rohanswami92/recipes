@@ -1,0 +1,14 @@
+# Flag shown after a recipe's title on the home page, from its first cuisine tag.
+# Broad tags like `asian` have no flag on purpose.
+chinese: 🇨🇳
+french: 🇫🇷
+greek: 🇬🇷
+indian: 🇮🇳
+italian: 🇮🇹
+japanese: 🇯🇵
+korean: 🇰🇷
+malaysian: 🇲🇾
+mexican: 🇲🇽
+thai: 🇹🇭
+turkish: 🇹🇷
+vietnamese: 🇻🇳
